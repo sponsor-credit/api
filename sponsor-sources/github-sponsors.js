@@ -1,5 +1,5 @@
-import axios from 'axios'
-import process from 'process'
+import axios from "axios";
+import process from "process";
 
 export default (username) =>
   new Promise((resolve, reject) => {
@@ -42,9 +42,19 @@ export default (username) =>
       )
       .then(
         (resp) => {
-          resolve(resp.data.data.user.sponsors.nodes.map((obj) => {
-          return {username: obj.login, profilePicture: obj.avatarUrl, link: obj.url}
-        }));
+          if (resp.status < 300) {
+            resolve(
+              resp.data.data.user.sponsors.nodes.map((obj) => {
+                return {
+                  username: obj.login,
+                  profilePicture: obj.avatarUrl,
+                  link: obj.url,
+                };
+              })
+            );
+          } else {
+            reject(resp.data);
+          }
         },
         (err) => {
           reject(err);
