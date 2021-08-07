@@ -1,9 +1,8 @@
-const axios = require("axios");
-const process = require("process");
+import axios from 'axios'
+import process from 'process'
 
-module.exports = (username) =>
+export default (username) =>
   new Promise((resolve, reject) => {
-    console.log(username);
     let config = {
       headers: {
         Authorization: `bearer ${process.env.GH_TOKEN}`,
@@ -32,7 +31,10 @@ module.exports = (username) =>
       )
       .then(
         (resp) => {
-          resolve(resp.data.data.user.sponsors.nodes);
+          resolve(resp.data.data.user.sponsors.nodes.map((obj) => {
+          return {username: obj.login, profilePicture: obj.avatarUrl}
+        })
+);
         },
         (err) => {
           reject(err);
