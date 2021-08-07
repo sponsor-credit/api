@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import ghSponsors from "./sponsor-sources/github-sponsors.js";
 import express from "express";
+import { renderSVGArray, getImageRoundSvgText } from "./svgCreator.js";
 const app = express();
 const port = 3000;
 
@@ -36,80 +37,54 @@ app.get("/api/v1/:name", (req, res) => {
 
 app.get("/:username.svg", (req, res) => {
   console.log(req.params.username);
-  const pfpSize = parseInt(req.query.pfpSize) || 40;
+  const pfpSize = parseInt(req.query.pfpSize) || 50;
 
   const width = parseInt(req.query.width) || 600;
-  const autoHeight = req.query.autoHeight || true;
   const margin = 3;
 
   let currentRow = 0;
   let currentX = 0;
 
-  let height = 0;
-  let cols = 0;
-
   ghSponsors(req.params.username).then(
     (data) => {
-      if (!autoHeight) {
-        height = req.query.height || 100;
-      } else {
-        console.log(data.length * (pfpSize + margin)); // how many pixels are needed
-        let rowsneed = Math.ceil((data.length * (pfpSize + margin)) / width); // how many rows are needed
-        height = rowsneed * (pfpSize + margin);
-        console.log(
-          `cringedata ${
-            (data.length * (pfpSize + margin)) / (rowsneed * (pfpSize + margin))
-          }`
-        );
+      let imgs = [];
 
-        cols = Math.floor(
-          (data.length * (pfpSize + margin)) / (rowsneed * (pfpSize + margin))
-        );
-        console.log(cols + " cols");
-        console.log(height);
-      }
+      const rowsNeeded = Math.ceil((data.length * (pfpSize + margin)) / width); // how many rows are needed
+      const height = rowsNeeded * (pfpSize + margin) + pfpSize + margin; // total height
+
+      const cols = Math.floor(
+        (data.length * (pfpSize + margin)) / (rowsNeeded * (pfpSize + margin))
+      );
+
       let inde = 0;
-      let baseSvg = `<style xmlns="http://www.w3.org/2000/svg">.atag{ cursor: pointer; }.pfp{border-radius:50%;}</style><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="${width}" height="${height}">`;
-      for (let i = 0; i < data.length; i++) {
+
+      data.forEach((donator) => {
         currentX = (pfpSize + margin) * inde;
 
-        console.log(inde + " " + currentRow + " " + currentX);
-
         if (currentX + pfpSize > width) {
-          console.log(
-            ` currentx and pfp size:${currentX + pfpSize} and inde is ${inde}`
-          );
-
           currentX = 0;
-          // currentRow += 1;
-          console.log("RESET CURENTX and INCREASED ROW");
         }
         if (inde >= cols) {
-          console.log("reset inde");
           currentRow += 1;
           inde = 0;
         }
-        // console.log(`col: ${inde} currentX: ${currentX}`);
-        baseSvg += `<a class="atag" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${
-          data[i]["link"]
-        }" id="${data[i]["username"]}">
-      
-        <foreignObject x='${(pfpSize + margin) * inde}' y='${
-          currentRow * (pfpSize + margin)
-        }' width='${pfpSize}px' height='${pfpSize}px' >
-          <img
-            width='${pfpSize}px'
-            height='${pfpSize}px'
-            src=${data[i]["profilePicture"]}
-            class="pfp"/>
-        </foreignObject>
-        
-        </a>`;
+        imgs.push(
+          getImageRoundSvgText(
+            donator.link,
+            donator.profilePicture,
+            donator.username,
+            (pfpSize + margin) * inde,
+            currentRow * (pfpSize + margin),
+            pfpSize,
+            pfpSize,
+            "pfp"
+          )
+        );
         inde += 1;
-      }
+      });
+
       res.set("Content-Type", "text/html");
-      baseSvg += `</svg>`;
-      res.status(200).send(baseSvg);
+      res.status(200).send(renderSVGArray(imgs, width, height));
     },
     (err) => {
       console.log(err);
@@ -121,9 +96,3 @@ app.get("/:username.svg", (req, res) => {
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
-
-// <image x="${
-//   i * 46
-// }" y="3" width="46" height="46" xlink:href="${
-//   data[i]["profilePicture"]
-// }"/>
