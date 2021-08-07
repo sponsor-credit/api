@@ -36,10 +36,10 @@ app.get("/api/v1/:name", (req, res) => {
 
 app.get("/:username.svg", (req, res) => {
   console.log(req.params.username);
-  const pfpSize = req.query.pfpSize || 40;
+  const pfpSize = parseInt(req.query.pfpSize) || 40;
 
-  const width = req.query.width || 600;
-  const autoHeight = req.query.authHeight || true;
+  const width = parseInt(req.query.width) || 600;
+  const autoHeight = req.query.autoHeight || true;
   const margin = 3;
 
   let currentRow = 0;
@@ -56,22 +56,40 @@ app.get("/:username.svg", (req, res) => {
         console.log(data.length * (pfpSize + margin)); // how many pixels are needed
         let rowsneed = Math.ceil((data.length * (pfpSize + margin)) / width); // how many rows are needed
         height = rowsneed * (pfpSize + margin);
-        cols = Math.ceil(data.length / rowsneed);
-        console.log(cols + "cols");
+        console.log(
+          `cringedata ${
+            (data.length * (pfpSize + margin)) / (rowsneed * (pfpSize + margin))
+          }`
+        );
+
+        cols = Math.floor(
+          (data.length * (pfpSize + margin)) / (rowsneed * (pfpSize + margin))
+        );
+        console.log(cols + " cols");
         console.log(height);
       }
       let inde = 0;
       let baseSvg = `<style xmlns="http://www.w3.org/2000/svg">.atag{ cursor: pointer; }.pfp{border-radius:50%;}</style><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="${width}" height="${height}">`;
       for (let i = 0; i < data.length; i++) {
         currentX = (pfpSize + margin) * inde;
+
+        console.log(inde + " " + currentRow + " " + currentX);
+
         if (currentX + pfpSize > width) {
+          console.log(
+            ` currentx and pfp size:${currentX + pfpSize} and inde is ${inde}`
+          );
+
           currentX = 0;
-          currentRow += 1;
+          // currentRow += 1;
+          console.log("RESET CURENTX and INCREASED ROW");
         }
-        if (inde > cols) {
+        if (inde >= cols) {
+          console.log("reset inde");
+          currentRow += 1;
           inde = 0;
         }
-        // console.log(inde + " " + currentRow + " " + currentX);
+        // console.log(`col: ${inde} currentX: ${currentX}`);
         baseSvg += `<a class="atag" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${
           data[i]["link"]
         }" id="${data[i]["username"]}">

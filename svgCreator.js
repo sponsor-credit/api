@@ -1,5 +1,15 @@
+// unused atm
 export function renderSVGArray(svgArray, width, height) {
-  const startSvg = `<style xmlns="http://www.w3.org/2000/svg">.atag{ cursor: pointer; }.pfp{border-radius:50%;}</style><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="${width}" height="${height}">`;
+  const startSvg = `
+  <style xmlns="http://www.w3.org/2000/svg">
+    .atag {
+      cursor: pointer;
+    }
+    .pfp{
+      border-radius:50%;
+    }
+  </style>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="${width}" height="${height}">`;
   const endSvg = `</svg>`;
   return [startSvg].concat(svgArray).push(endSvg);
 }
