@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,10 @@
     "eslint-plugin-import": "^2.23.4"
   },
   "dependencies": {
-    "graphql": "^15.5.1"
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.1",
+    "nodemon": "^2.0.12"
   }
 }
