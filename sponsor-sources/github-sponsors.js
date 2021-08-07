@@ -12,29 +12,39 @@ export default (username) =>
       .post(
         "https://api.github.com/graphql",
         {
-          query: `query {
-        user(login: "${username}") {
-          ... on Sponsorable {
-            sponsors(first: 100) {
-              totalCount
-              nodes {
-                ... on User { login, avatarUrl }
-                ... on Organization { login }
+          query: `
+          {
+            user(login: "${username}") {
+              ... on Sponsorable {
+                sponsors(first: 100) {
+                  totalCount
+                  nodes {
+                    ... on User {
+                      login
+                      avatarUrl(size: 256)
+                      url
+                    }
+                    ... on Organization {
+                      login
+                      avatarUrl(size: 256)
+                      url
+                    }
+                  }
+                }
               }
             }
           }
-        }
-      }
-      `,
+           
+          
+          `,
         },
         config
       )
       .then(
         (resp) => {
           resolve(resp.data.data.user.sponsors.nodes.map((obj) => {
-          return {username: obj.login, profilePicture: obj.avatarUrl}
-        })
-);
+          return {username: obj.login, profilePicture: obj.avatarUrl, link: obj.url}
+        }));
         },
         (err) => {
           reject(err);

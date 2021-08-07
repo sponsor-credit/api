@@ -5,7 +5,12 @@ import express from 'express';
 const app = express();
 const port = 3000;
 
+import cors from 'cors';
+
+app.use(cors())
+
 app.get("/api/v1/:name", (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*')
   ghSponsors(req.params.name).then(
     (data) => {
       res.send(data);
