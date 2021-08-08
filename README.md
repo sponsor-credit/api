@@ -34,7 +34,7 @@ The width size option determines the size of an image, the default being 600 pix
 ```
 #### Experimenting with larger amounts
 ##### https://sponsors.harjyotsahni.com/ThePhD.svg
-The pfp size option determines the size of an image, the default being 50 pixels, the maximum is 100 pixels!
+Using the api with a larger amount of people will take a bit longer due to the images needing to be requested and edited. Be sure to visit the url that you will use in the browser before adding it to github's cache
 ```
 ![sponsors](https://sponsors.harjyotsahni.com/ThePhD.svg)
 ```
