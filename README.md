@@ -28,10 +28,13 @@ It will end up looking something like this!
 ##### https://sponsors.harjyotsahni.com/danielroe.svg?pfpSize=100
 The pfp size option determines the size of an pfp, the default being 50 pixels, the maximum is 100 pixels!
 ##
+
 For markdown:
+
 ```md
 ![sponsors](https://sponsors.harjyotsahni.com/danielroe.svg?pfpSize=100)
 ```
+
 For HTML:
 ```
 <img src="https://sponsors.harjyotsahni.com/danielroe.svg"><img>
