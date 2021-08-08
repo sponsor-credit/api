@@ -8,13 +8,14 @@ export default (username) =>
         Authorization: `bearer ${process.env.GH_TOKEN}`,
       },
     };
+    let accType = "user";
     axios
       .post(
         "https://api.github.com/graphql",
         {
           query: `
           {
-            user(login: "${username}") {
+            ${accType}(login: "${username}") {
               ... on Sponsorable {
                 sponsors(first: 100) {
                   totalCount
@@ -44,7 +45,7 @@ export default (username) =>
         (resp) => {
           if (resp.status < 300) {
             resolve(
-              resp.data.data.user.sponsors.nodes.map((obj) => {
+              resp.data.data[accType].sponsors.nodes.map((obj) => {
                 return {
                   username: obj.login,
                   profilePicture: obj.avatarUrl,
@@ -53,6 +54,7 @@ export default (username) =>
               })
             );
           } else {
+            accType = "organization";
             reject(resp.data);
           }
         },

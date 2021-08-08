@@ -65,7 +65,6 @@ app.get("/:username.svg", (req, res) => {
       );
 
       let inde = 0;
-      console.log(data);
 
       for (let donator in data) {
         currentX = (pfpSize + margin) * inde;
