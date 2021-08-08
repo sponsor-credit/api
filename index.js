@@ -2,9 +2,13 @@ import dotenv from "dotenv";
 dotenv.config();
 import ghSponsors from "./sponsor-sources/github-sponsors.js";
 import express from "express";
-import { renderSVGArray, getImageRoundSvgText } from "./svgCreator.js";
+import {
+  renderSVGArray,
+  getImageRoundSvgText,
+  base64Image,
+} from "./svgCreator.js";
 const app = express();
-const port = 3000;
+const port = 80;
 
 import cors from "cors";
 
@@ -36,8 +40,11 @@ app.get("/api/v1/:name", (req, res) => {
 // });
 
 app.get("/:username.svg", (req, res) => {
-  console.log(req.params.username);
   const pfpSize = parseInt(req.query.pfpSize) || 50;
+
+  if (pfpSize > 100) {
+    req.status(400).send({ error: "pfpSize must be <= 100" });
+  }
 
   const width = parseInt(req.query.width) || 600;
   const margin = 3;
@@ -46,8 +53,8 @@ app.get("/:username.svg", (req, res) => {
   let currentX = 0;
 
   ghSponsors(req.params.username).then(
-    (data) => {
-      let imgs = [];
+    async (data) => {
+      const imgs = [];
 
       const rowsNeeded = Math.ceil((data.length * (pfpSize + margin)) / width); // how many rows are needed
       const height = rowsNeeded * (pfpSize + margin) + pfpSize + margin; // total height
@@ -58,7 +65,7 @@ app.get("/:username.svg", (req, res) => {
 
       let inde = 0;
 
-      data.forEach((donator) => {
+      for (let donator in data) {
         currentX = (pfpSize + margin) * inde;
 
         if (currentX + pfpSize > width) {
@@ -68,22 +75,31 @@ app.get("/:username.svg", (req, res) => {
           currentRow += 1;
           inde = 0;
         }
+
+        // let image = "";
+
+        const b64data = await base64Image(data[donator].profilePicture);
+
         imgs.push(
           getImageRoundSvgText(
-            donator.link,
-            donator.profilePicture,
-            donator.username,
+            data[donator].link,
+            b64data,
+            data[donator].username,
             (pfpSize + margin) * inde,
             currentRow * (pfpSize + margin),
             pfpSize,
-            pfpSize,
-            "pfp"
+            pfpSize
           )
         );
-        inde += 1;
-      });
 
-      res.set("Content-Type", "text/html");
+        inde += 1;
+      }
+
+      let contentType = "image/svg+xml";
+      if (req.query.browser) {
+        contentType = "text/html";
+      }
+      res.set("Content-Type", contentType);
       res.status(200).send(renderSVGArray(imgs, width, height));
     },
     (err) => {
