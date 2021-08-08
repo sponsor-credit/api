@@ -58,7 +58,12 @@ app.get("/:username.svg", (req, res) => {
       const imgs = [];
 
       const rowsNeeded = Math.ceil((data.length * (pfpSize + margin)) / width); // how many rows are needed
-      const height = rowsNeeded * (pfpSize + margin) + pfpSize + margin; // total height
+      let height;
+      if (rowsNeeded == 1) {
+        height = rowsNeeded * (pfpSize + margin); // total height
+      } else {
+        height = rowsNeeded * (pfpSize + margin) + pfpSize + margin; // total height
+      }
 
       const cols = Math.floor(
         (data.length * (pfpSize + margin)) / (rowsNeeded * (pfpSize + margin))
