@@ -20,8 +20,8 @@ For HTML:
 <img src="https://sponsors.harjyotsahni.com/danielroe.svg"><img>
 ````
 **Fun Fact! Clicking on the link will take you to aninteractive page where you can view sponsors profiles!**
-It will end up looking something like this!
-##
+It will end up looking something like this!  
+
 ![sponsors](https://sponsors.harjyotsahni.com/danielroe.svg?)
 
 ### Advanced Options
