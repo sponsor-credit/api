@@ -33,9 +33,9 @@ The width size option determines the size of an image, the default being 600 pix
 ![sponsors](https://sponsors.harjyotsahni.com/danielroe.svg?width=100)
 ```
 #### Experimenting with larger amounts
-##### https://sponsors.harjyotsahni.com/andrewrk.svg
+##### https://sponsors.harjyotsahni.com/ThePhD.svg
 The pfp size option determines the size of an image, the default being 50 pixels, the maximum is 100 pixels!
 ```
-![sponsors](https://sponsors.harjyotsahni.com/andrewrk.svg)
+![sponsors](https://sponsors.harjyotsahni.com/ThePhD.svg)
 ```
-![sponsors](https://sponsors.harjyotsahni.com/andrewrk.svg)
+![sponsors](https://sponsors.harjyotsahni.com/ThePhD.svg)
