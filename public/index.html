@@ -1,0 +1,334 @@
+<html>
+  <head>
+    <style>
+      pre,
+      code {
+        font-family: Menlo, Monaco, "Courier New", monospace;
+      }
+
+      pre {
+        padding: 0.5rem;
+        line-height: 1.25;
+        overflow-x: scroll;
+      }
+
+      @media print {
+        *,
+        *:before,
+        *:after {
+          background: transparent !important;
+          color: #000 !important;
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+
+        a,
+        a:visited {
+          text-decoration: underline;
+        }
+
+        a[href]:after {
+          content: " (" attr(href) ")";
+        }
+
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
+
+        a[href^="#"]:after,
+        a[href^="javascript:"]:after {
+          content: "";
+        }
+
+        pre,
+        blockquote {
+          border: 1px solid #999;
+          page-break-inside: avoid;
+        }
+
+        thead {
+          display: table-header-group;
+        }
+
+        tr,
+        img {
+          page-break-inside: avoid;
+        }
+
+        img {
+          max-width: 100% !important;
+        }
+
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+
+        h2,
+        h3 {
+          page-break-after: avoid;
+        }
+      }
+
+      a,
+      a:visited {
+        color: #01ff70;
+      }
+
+      a:hover,
+      a:focus,
+      a:active {
+        color: #2ecc40;
+      }
+
+      .retro-no-decoration {
+        text-decoration: none;
+      }
+
+      html {
+        font-size: 12px;
+      }
+
+      @media screen and (min-width: 32rem) and (max-width: 48rem) {
+        html {
+          font-size: 15px;
+        }
+      }
+
+      @media screen and (min-width: 48rem) {
+        html {
+          font-size: 16px;
+        }
+      }
+
+      body {
+        line-height: 1.85;
+      }
+
+      p,
+      .retro-p {
+        font-size: 1rem;
+        margin-bottom: 1.3rem;
+      }
+
+      h1,
+      .retro-h1,
+      h2,
+      .retro-h2,
+      h3,
+      .retro-h3,
+      h4,
+      .retro-h4 {
+        margin: 1.414rem 0 0.5rem;
+        font-weight: inherit;
+        line-height: 1.42;
+      }
+
+      h1,
+      .retro-h1 {
+        margin-top: 0;
+        font-size: 3.998rem;
+      }
+
+      h2,
+      .retro-h2 {
+        font-size: 2.827rem;
+      }
+
+      h3,
+      .retro-h3 {
+        font-size: 1.999rem;
+      }
+
+      h4,
+      .retro-h4 {
+        font-size: 1.414rem;
+      }
+
+      h5,
+      .retro-h5 {
+        font-size: 1.121rem;
+      }
+
+      h6,
+      .retro-h6 {
+        font-size: 0.88rem;
+      }
+
+      small,
+      .retro-small {
+        font-size: 0.707em;
+      }
+
+      /* https://github.com/mrmrs/fluidity */
+
+      img,
+      canvas,
+      iframe,
+      video,
+      svg,
+      select,
+      textarea {
+        max-width: 100%;
+      }
+
+      html,
+      body {
+        background-color: #222;
+        min-height: 100%;
+      }
+
+      html {
+        font-size: 18px;
+      }
+
+      body {
+        color: #fafafa;
+        font-family: "Courier New";
+        line-height: 1.45;
+        margin: 6rem auto 1rem;
+        max-width: 48rem;
+        padding: 0.25rem;
+      }
+
+      pre {
+        background-color: #333;
+      }
+
+      blockquote {
+        border-left: 3px solid #01ff70;
+        padding-left: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="sponsor-credit-api">Sponsor Credit API</h1>
+    <h3 id="show-appreciation-to-your-sponsors">
+      Show appreciation to your sponsors
+    </h3>
+    <hr />
+    <h3 id="why-did-we-make-this-">Why did we make this?</h3>
+    <p>
+      GitHub sponsors is a major platform many developers use to fund their open
+      source work, and developers often like to give credit to those sponsoring
+      them through README files or other documents. GitHub sponsors does not
+      provide an easy way of doing this, short of manually writing out sponsor
+      names. This is what our project aims to fix, it provides an easy way to
+      give credit to your GitHub sponsors through your README file, no extra
+      configuration needed.
+    </p>
+    <h2 id="how-it-works-">How it works?</h2>
+    <p>
+      The projects works by generating a svg that can be embeded in a README or
+      a website using a image tag. The svg will have smaller <code>a</code> tags
+      which have links to the sponsors profiles.
+    </p>
+    <h2 id="usage">Usage</h2>
+    <h5 id="https-sponsors-harjyotsahni-com-danielroe-svg">
+      <a href="https://sponsors.harjyotsahni.com/danielroe.svg"
+        >https://sponsors.harjyotsahni.com/danielroe.svg</a
+      >
+    </h5>
+    <p>
+      Embed the text below text into your readme replacing
+      <code>danielrow</code> with your github username! For markdown:
+    </p>
+    <pre><code class="lang-md">![<span class="hljs-string">sponsors</span>](<span class="hljs-link">https://sponsors.harjyotsahni.com/danielroe.svg</span>)
+
+</code></pre>
+    <p>For HTML:</p>
+    <pre><code><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://sponsors.harjyotsahni.com/danielroe.svg"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span>&gt;</span>
+
+</code></pre>
+    <p>
+      <strong
+        >Fun Fact! Clicking on the link will take you to aninteractive page
+        where you can view sponsors profiles!</strong
+      >
+      It will end up looking something like this!<br /><img
+        src="https://sponsors.harjyotsahni.com/danielroe.svg?"
+        alt="sponsors"
+      />
+    </p>
+    <h3 id="advanced-options">Advanced Options</h3>
+    <h4 id="pfp-sizes">Pfp Sizes</h4>
+    <h5 id="https-sponsors-harjyotsahni-com-danielroe-svg-pfpsize-100">
+      <a href="https://sponsors.harjyotsahni.com/danielroe.svg?pfpSize=100"
+        >https://sponsors.harjyotsahni.com/danielroe.svg?pfpSize=100</a
+      >
+    </h5>
+    <p>
+      The pfp size option determines the size of an pfp, the default being 50
+      pixels, the maximum is 100 pixels!
+    </p>
+    <p>## For markdown:</p>
+    <pre><code class="lang-md">![<span class="hljs-string">sponsors</span>](<span class="hljs-link">https://sponsors.harjyotsahni.com/danielroe.svg?pfpSize=100</span>)
+</code></pre>
+    <p>For HTML:</p>
+    <pre><code><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://sponsors.harjyotsahni.com/danielroe.svg"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span>&gt;</span>
+</code></pre>
+    <p>
+      <img
+        src="https://sponsors.harjyotsahni.com/danielroe.svg?pfpSize=100"
+        alt="sponsors"
+      />
+    </p>
+    <h4 id="widths">Widths</h4>
+    <h5 id="https-sponsors-harjyotsahni-com-danielroe-svg-width-100">
+      <a href="https://sponsors.harjyotsahni.com/danielroe.svg?width=100"
+        >https://sponsors.harjyotsahni.com/danielroe.svg?width=100</a
+      >
+    </h5>
+    <p>
+      The width size option determines the size of an image, the default being
+      600 pixels.
+      <br />
+      For markdown:
+    </p>
+    <pre><code class="lang-md">![<span class="hljs-string">sponsors</span>](<span class="hljs-link">https://sponsors.harjyotsahni.com/danielroe.svg?width=100</span>)
+</code></pre>
+    <p>For HTML:</p>
+    <pre><code><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://sponsors.harjyotsahni.com/danielroe.svg"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span>&gt;</span>
+</code></pre>
+    <h4 id="experimenting-with-larger-amounts">
+      Experimenting with larger amounts
+    </h4>
+    <h5 id="https-sponsors-harjyotsahni-com-thephd-svg">
+      <a href="https://sponsors.harjyotsahni.com/ThePhD.svg"
+        >https://sponsors.harjyotsahni.com/ThePhD.svg</a
+      >
+    </h5>
+    <p>
+      Using the api with a larger amount of people will take a bit longer due to
+      the images needing to be requested and edited. Be sure to visit the url
+      that you will use in the browser before adding it to github&#39;s cache or
+      your readme.
+    </p>
+    <p>## For markdown:</p>
+    <pre><code>![<span class="hljs-string">sponsors</span>](<span class="hljs-link">https://sponsors.harjyotsahni.com/ThePhD.svg</span>)
+</code></pre>
+    <p>For HTML:</p>
+    <pre><code><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://sponsors.harjyotsahni.com/ThePhD.svg"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span>&gt;</span>
+</code></pre>
+    <h2 id="-sponsors-https-sponsors-harjyotsahni-com-thephd-svg-">
+      <img src="https://sponsors.harjyotsahni.com/ThePhD.svg" alt="sponsors" />
+    </h2>
+    <hr />
+    <h1 id="plans-in-the-future-">Plans in the future!</h1>
+    <h3 id="to-further-develop-our-project-we-are-planning-on-adding-">
+      To further develop our project we are planning on adding.
+    </h3>
+    <ul>
+      <li>Adding organisanisation support.</li>
+      <li>Adding a aggressive cache to reduce image load times.</li>
+      <li>Implimenting more customisable features for for the api.</li>
+      <li>
+        Adding an iframable endpoint that has more information while hovering
+        over profiles
+      </li>
+      <li>More platforms (if possible)</li>
+    </ul>
+  </body>
+</html>

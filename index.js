@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import ghSponsors from "./sponsor-sources/github-sponsors.js";
 import express from "express";
+import path from "path";
+
 import {
   renderSVGArray,
   getImageRoundSvgText,
@@ -9,11 +11,14 @@ import {
 } from "./svgCreator.js";
 const app = express();
 const port = 80;
+app.use(express.static("public"));
 
 import cors from "cors";
 
 app.use(cors());
-
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "/index.html"));
+});
 app.get("/api/v1/:name", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   ghSponsors(req.params.name)
