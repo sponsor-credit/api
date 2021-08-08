@@ -42,7 +42,7 @@ For HTML:
 #### Widths
 ##### https://sponsors.harjyotsahni.com/danielroe.svg?width=100
 The width size option determines the size of an image, the default being 600 pixels.
-##
+<br/>
 For markdown:
 ```md
 ![sponsors](https://sponsors.harjyotsahni.com/danielroe.svg?width=100)
