@@ -3,6 +3,7 @@ import axios from "axios";
 
 export function renderSVGArray(svgArray, width, height) {
   const startSvg = `
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="${width}" height="${height}">
   <style xmlns="http://www.w3.org/2000/svg">
     .atag {
       cursor: pointer;
@@ -11,7 +12,8 @@ export function renderSVGArray(svgArray, width, height) {
       border-radius:50%;
     }
   </style>
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="${width}" height="${height}">`;
+  `;
+
   let svgArr = [startSvg, ...svgArray, `</svg>`];
   return svgArr.join("");
 }

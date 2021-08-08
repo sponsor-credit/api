@@ -40,6 +40,7 @@ app.get("/api/v1/:name", (req, res) => {
 // });
 
 app.get("/:username.svg", (req, res) => {
+  console.log(req.params.username);
   const pfpSize = parseInt(req.query.pfpSize) || 50;
 
   if (pfpSize > 100) {
@@ -64,6 +65,7 @@ app.get("/:username.svg", (req, res) => {
       );
 
       let inde = 0;
+      console.log(data);
 
       for (let donator in data) {
         currentX = (pfpSize + margin) * inde;
